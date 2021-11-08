@@ -1,40 +1,69 @@
-<canvas id='tablero'  width=500 height = 450></canvas>
+<canvas id='canvas' width=5000 height=4500>
 <script>
-	function rotacionPunto(cxOj, cyOj, rot){
-	var mr = [[Math.cos(r)], -Math.sin(r)],[Math.sin(r), math.cos(r)]];
-}
-	function rotacion(oj, r){
-	var s = [];
-
-	for (var i = 0; i < oj.length; i+=2){
-		var pr = RotacionPunto(oj[i], obj[i + 1], r) 
-		s[i] = pr[i % 2 == 0 ? 0 : 1];
-	}
-	return s; 
-}
-	function polygon(cd,colorBorde,colorRelleno,grosor){
-	ctx.beginPath();
-	ctx.strokeStyle = colorBorde;
-	ctx.fillStyle=colorRelleno;
-	ctx.lineWidth= grosor;
-	ctx.moveTo(cd[0],cd[1]);
-	for (var i = 2; i < cd.length; i+=2)
-		ctx.lineTo(cd[i],cd [i + 1])
-	ctx.closePath();
-	ctx.stroke();
-	ctx.fill();
+	
+	function polygon(a, colorBorde, colorRelleno, grosor) { 
+	ctx.beginPath()
+	ctx.strokeStyle = colorBorde
+	ctx.fillStyle = colorRelleno
+	ctx.lineWidth = grosor;
+	ctx.moveTo(a[0],a[1])
+	for (i=2; i < a.length; i+=2)
+	ctx.lineTo(a[i],a[i+1]);
+	ctx.closePath()
+	ctx.stroke()
+	ctx.fill()
 }
 
-	
-	var c = document.getElementById('tablero')
-	var ctx = c.getContext('2d')
-	
-	var letra_e = [0,0,0,50,40,50,40,40,10,40,10,30,20,30,20,20,10,20,10,10,40,10,40,0]
-	
-	var r = Math.PI/6;
+	function Suma(a,b){
+	var z = [];
+	for (i=0; i < a.length; i+=2){
+	z[i]=(a[i]+b[0])
+	z[i+1]=(a[i+1]+b[1])
+    }
+	return z;
+}
 
-	var letra_e_rotada = rotacion(letra_e, r);
+	function Resta(a,b){
+	var z = [];
+	for (i=0; i < a.length; i+=2){
+	z[i]=(a[i]-b[0])
+	z[i+1]=(a[i+1]-b[1])
+    }
+	return z;
+}
+
+	function rotarobj(a,r){
+	var z = [];
+	var m= [Math.cos(r), -Math.sin(r),Math.sin(r), Math.cos(r)]
+	for (i=0; i < a.length; i+=2){
+	z[i]=(a[i]*m[0]+a[i+1]*m[1])
+	z[i+1]=(a[i]*m[2]+a[i+1]*m[3])
+    }
+	return z;
+}
+
+	var canvas = document.getElementById('canvas')
+	var ctx = canvas.getContext('2d');
 	
-	polygon(letra_e,'magenta', 'magenta');
-	polygon(letra_e_rotada, 'blue', 'green');
+	var Letra_s = [889,405,884,375,859,327,814,285,725,254,588,250,493,276,434,307,
+	403,353,392,389,402,447,440,493,490,520,570,548,652,565,736,589,771,616,776,641,
+	758,671,716,697,638,704,552,683,515,649,496,605,366,605,380,667,415,722,472,762,
+	566,790,726,789,821,760,879,715,901,667,908,619,874,537,804,490,589,441,532,413,
+	521,382,553,350,611,335,668,339,723,359,755,405];
+
+	var rota = 75;
+
+	var vect_trans = [250,350];
+
+	var Letra_S_Centro = Resta(Letra_s, vect_trans)
+
+	var Letra_S_Rtcentro = rotarobj(Letra_S_Centro, rota)
+
+	var Letra_s_rt = Suma(Letra_S_Rtcentro, vect_trans)
+	
+	polygon(Letra_s, 'red','yellow', 5)
+	
+	polygon(Letra_s_rt, 'red','orange', 5)
+	
+	
 </script>

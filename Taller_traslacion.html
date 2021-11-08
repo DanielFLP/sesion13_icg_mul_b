@@ -1,4 +1,4 @@
-<canvas id='tablero'  width=500 height = 450></canvas>
+<canvas id='tablero'  width=5000 height = 4500></canvas>
 <script>
 	function sumaTras(v1, v2){
 	var s = [];
@@ -23,12 +23,14 @@
 	var c = document.getElementById('tablero')
 	var ctx = c.getContext('2d')
 	
-	var letra_e = [0,0,0,50,40,50,40,40,10,40,10,30,20,30,20,20,10,20,10,10,40,10,40,0]
+	var letra_L = [317,171,317,398,476,401,476,344,395,344,390,171]
 	
-	var vt = [60,90];
-
-	var letra_e_trasladada = sumaTras(letra_e, vt);
+	var vt = [250, 350];
 	
-	polygon(letra_e,'magenta', 'magenta');
-	polygon(letra_e_trasladada, 'blue', 'green');
+	var letra_L_trasladada = sumaTras(letra_L, vt);
+	ctx.translate(40,40);
+	polygon(letra_L,'red', 'yellow',5)
+	
+	polygon(letra_L_trasladada, 'red', 'yellow',5);
+	
 </script>
